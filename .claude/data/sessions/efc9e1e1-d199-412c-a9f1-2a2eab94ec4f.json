@@ -1,0 +1,6 @@
+{
+  "session_id": "efc9e1e1-d199-412c-a9f1-2a2eab94ec4f",
+  "prompts": [
+    "/feature 1 e856c968 {\"number\":1,\"title\":\"One click table exports\",\"body\":\"Using adw_plan_build_review add one click table exports and one click result export feature to get results as csv files.\\n\\nCreate 2 new endpoints to support these features. One for exporting tables, one for exporting query results.\\n\\nPlace a download button directly to the left of the 'x' icon for available tables.\\nPlace a download button directly to the left of the 'hide' button for query results.\\n\\nUse the appropriate download icon.\"}"
+  ]
+}
