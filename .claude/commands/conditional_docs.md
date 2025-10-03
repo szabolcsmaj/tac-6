@@ -29,3 +29,11 @@ This prompt helps you determine what documentation you should read based on the 
 - adws/README.md
   - Conditions:
     - When you're operating in the `adws/` directory
+
+- app_docs/feature-e856c968-table-query-export.md
+  - Conditions:
+    - When implementing CSV export functionality
+    - When working with data export features for tables or query results
+    - When adding download/export buttons to the UI
+    - When troubleshooting export endpoint issues
+    - When implementing similar file download features
