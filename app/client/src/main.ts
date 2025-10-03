@@ -182,13 +182,23 @@ async function loadDatabaseSchema() {
 
 // Display query results
 function displayResults(response: QueryResponse, query: string) {
-  
+
   const resultsSection = document.getElementById('results-section') as HTMLElement;
   const sqlDisplay = document.getElementById('sql-display') as HTMLDivElement;
   const resultsContainer = document.getElementById('results-container') as HTMLDivElement;
-  
+  const resultsHeader = resultsSection.querySelector('.results-header') as HTMLDivElement;
+
   resultsSection.style.display = 'block';
-  
+
+  // Update results header with download button
+  resultsHeader.innerHTML = `
+    <h2>Query Results</h2>
+    <div class="results-actions">
+      <button id="export-results" class="download-button" title="Export results as CSV">⬇</button>
+      <button id="toggle-results" class="toggle-button">Hide</button>
+    </div>
+  `;
+
   // Display natural language query and SQL
   sqlDisplay.innerHTML = `
     <div class="query-display">
@@ -198,7 +208,7 @@ function displayResults(response: QueryResponse, query: string) {
       <strong>SQL:</strong> <code>${response.sql}</code>
     </div>
   `;
-  
+
   // Display results table
   if (response.error) {
     resultsContainer.innerHTML = `<div class="error-message">${response.error}</div>`;
@@ -209,13 +219,27 @@ function displayResults(response: QueryResponse, query: string) {
     resultsContainer.innerHTML = '';
     resultsContainer.appendChild(table);
   }
-  
+
   // Initialize toggle button
   const toggleButton = document.getElementById('toggle-results') as HTMLButtonElement;
   toggleButton.addEventListener('click', () => {
     resultsContainer.style.display = resultsContainer.style.display === 'none' ? 'block' : 'none';
     toggleButton.textContent = resultsContainer.style.display === 'none' ? 'Show' : 'Hide';
   });
+
+  // Initialize export button
+  const exportButton = document.getElementById('export-results') as HTMLButtonElement;
+  if (exportButton && !response.error && response.results.length > 0) {
+    exportButton.onclick = async () => {
+      try {
+        await api.exportQueryResults(response.sql, response.columns);
+      } catch (error) {
+        displayError(error instanceof Error ? error.message : 'Export failed');
+      }
+    };
+  } else if (exportButton) {
+    exportButton.disabled = true;
+  }
 }
 
 // Create results table
@@ -284,15 +308,35 @@ function displayTables(tables: TableSchema[]) {
     
     tableLeft.appendChild(tableName);
     tableLeft.appendChild(tableInfo);
-    
+
+    // Create actions container for buttons
+    const tableActions = document.createElement('div');
+    tableActions.className = 'table-actions';
+
+    // Add download button
+    const downloadButton = document.createElement('button');
+    downloadButton.className = 'download-button';
+    downloadButton.innerHTML = '⬇';
+    downloadButton.title = 'Export table as CSV';
+    downloadButton.onclick = async () => {
+      try {
+        await api.exportTable(table.name);
+      } catch (error) {
+        displayError(error instanceof Error ? error.message : 'Export failed');
+      }
+    };
+
     const removeButton = document.createElement('button');
     removeButton.className = 'remove-table-button';
     removeButton.innerHTML = '&times;';
     removeButton.title = 'Remove table';
     removeButton.onclick = () => removeTable(table.name);
-    
+
+    tableActions.appendChild(downloadButton);
+    tableActions.appendChild(removeButton);
+
     tableHeader.appendChild(tableLeft);
-    tableHeader.appendChild(removeButton);
+    tableHeader.appendChild(tableActions);
     
     // Columns section
     const tableColumns = document.createElement('div');

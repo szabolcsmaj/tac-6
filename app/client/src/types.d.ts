@@ -84,3 +84,9 @@ interface HealthCheckResponse {
   version: string;
   uptime_seconds: number;
 }
+
+// Export Types
+interface ExportQueryRequest {
+  sql: string;
+  columns: string[];
+}
