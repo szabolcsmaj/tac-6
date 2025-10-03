@@ -1,0 +1,6 @@
+{
+  "session_id": "f64319e4-fd71-4af9-aa8d-0f0ae5a7694d",
+  "prompts": [
+    "/pull_request feat-issue-1-adw-e856c968-one-click-table-exports {\"number\":1,\"title\":\"One click table exports\",\"body\":\"Using adw_plan_build_review add one click table exports and one click result export feature to get results as csv files.\\n\\nCreate 2 new endpoints to support these features. One for exporting tables, one for exporting query results.\\n\\nPlace a download button directly to the left of the 'x' icon for available tables.\\nPlace a download button directly to the left of the 'hide' button for query results.\\n\\nUse the appropriate download icon.\"} /home/sloby/projects/sandbox/tactical-agentic-coding/tac-6/specs/issue-1-adw-e856c968-sdlc_planner-one-click-exports.md e856c968"
+  ]
+}

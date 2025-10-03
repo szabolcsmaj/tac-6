@@ -1,0 +1,6 @@
+{
+  "session_id": "2ad5f1c7-aca6-4a2e-a331-4c3a68a026fd",
+  "prompts": [
+    "/commit sdlc_implementor feature {\"number\":1,\"title\":\"One click table exports\",\"body\":\"Using adw_plan_build_review add one click table exports and one click result export feature to get results as csv files.\\n\\nCreate 2 new endpoints to support these features. One for exporting tables, one for exporting query results.\\n\\nPlace a download button directly to the left of the 'x' icon for available tables.\\nPlace a download button directly to the left of the 'hide' button for query results.\\n\\nUse the appropriate download icon.\"}"
+  ]
+}
